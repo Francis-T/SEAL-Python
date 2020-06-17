@@ -199,7 +199,9 @@ PYBIND11_MODULE(seal, m)
 			c.save(out);
 			out.close();
 		})
-		.def("save_size", &Ciphertext::save_size)
+		.def("save_size", [](const Ciphertext &c) {
+            return c.save_size(); 
+        })
 		.def("load", [](Ciphertext &c, std::shared_ptr<SEALContext> &context, std::string &path) {
 			std::ifstream in(path, std::ifstream::binary);
 			c.load(context, in);
